@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">testForAndroidJuniors</string>
+    <string name="title_jokes">Jokes</string>
+    <string name="title_apiinfo">Web</string>
+    <string name="title_countjokes">Count</string>
+    <string name="title_reload">Reload</string>
+    <string name="countText">Count</string>
+</resources>
