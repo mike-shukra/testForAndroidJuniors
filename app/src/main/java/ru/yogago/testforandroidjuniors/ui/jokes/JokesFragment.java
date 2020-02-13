@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
-import androidx.annotation.Nullable;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,11 +35,11 @@ public class JokesFragment extends Fragment {
         final EditText evCountJokes = root.findViewById(R.id.countJokes);
         final ListView lvJokes = root.findViewById(R.id.jokesList);
         final Button buttonStart = root.findViewById(R.id.button);
-
         buttonStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.d(LOG_TAG, "JokesFragment - setOnClickListener: " + this.hashCode());
                 int jokesCount = Integer.parseInt(evCountJokes.getText().toString());
-                jokesViewModel.loadContent(jokesCount);
+                jokesViewModel.loadContent(jokesCount, jokesViewModel);
             }
         });
         jokesViewModel.getText().observe(this, new Observer<String>() {

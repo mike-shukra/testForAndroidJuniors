@@ -1,8 +1,8 @@
 package ru.yogago.testforandroidjuniors.ui.jokes;
 
-import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,19 +11,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackgroundRestApiAction extends AsyncTask<String, Integer, Void> {
+
+class BackgroundRestApiAction {
 
     private final String LOG_TAG = "myLog";
     private int jokesCount;
-    private JokesViewModel jokesViewModel;
     private ArrayList<String> jokes = new ArrayList<>();
 
     BackgroundRestApiAction(int count) {
         this.jokesCount = count;
     }
 
-    @Override
-    protected Void doInBackground(String... strings) {
+    ArrayList<String> doAction(){
+        Log.d(LOG_TAG, "BackgroundRestApiAction - doAction: " + this.hashCode());
         List<Value> values = null;
         try {
             values = getJsonReader(connect());
@@ -31,19 +31,14 @@ public class BackgroundRestApiAction extends AsyncTask<String, Integer, Void> {
             e.printStackTrace();
         }
         for (int i = 0; i < jokesCount; i++) {
+            assert values != null;
             this.jokes.add(values.get(i).getJoke());
         }
-        publishProgress(1);
-
-        return null;
+        return jokes;
     }
 
-    @Override
-    protected void onProgressUpdate(Integer... values) {
-        super.onProgressUpdate(values);
-        this.jokesViewModel.setContentToView(this.jokes);
-    }
     private List<Value> getJsonReader(HttpURLConnection myConnection) throws IOException {
+        Log.d(LOG_TAG, "BackgroundRestApiAction - getJsonReader: " + this.hashCode());
         InputStream responseBody;
         InputStreamReader responseBodyReader;
         JsonReader jsonReader;
@@ -139,10 +134,6 @@ public class BackgroundRestApiAction extends AsyncTask<String, Integer, Void> {
         }
         reader.endArray();
         return strings;
-    }
-
-    void setJokesViewModel(JokesViewModel jokesViewModel) {
-        this.jokesViewModel = jokesViewModel;
     }
 
 }

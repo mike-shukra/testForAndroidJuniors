@@ -1,10 +1,17 @@
 package ru.yogago.testforandroidjuniors.ui.jokes;
 
 import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class JokesViewModel extends ViewModel {
 
@@ -12,7 +19,6 @@ public class JokesViewModel extends ViewModel {
     private MutableLiveData<String> mText;
     private MutableLiveData<Integer> mTextCountJokes;
     private MutableLiveData<ArrayList<String>> mJokes;
-    private BackgroundRestApiAction backgroundRestApiAction;
 
     public JokesViewModel() {
         mText = new MutableLiveData<>();
@@ -21,12 +27,26 @@ public class JokesViewModel extends ViewModel {
         mText.setValue("Введите количество");
     }
 
-    void loadContent(int countStr){
-        this.backgroundRestApiAction = new BackgroundRestApiAction(countStr);
-        this.backgroundRestApiAction.setJokesViewModel(this);
-        this.backgroundRestApiAction.execute();
+    void loadContent(final int countStr, final JokesViewModel jokesViewModel){
+        Log.d(LOG_TAG, "JokesViewModel - loadContent: " + this.hashCode());
+        Observable.fromCallable(new Callable<Object>() {
+            @Override
+            public Object call() {
+                return new BackgroundRestApiAction(countStr).doAction();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object result) throws Exception {
+                        //Use result for something
+                        jokesViewModel.setContentToView((ArrayList<String>) result);
+                    }
+                });
     }
-    void setContentToView(ArrayList<String> arr){
+
+    private void setContentToView(ArrayList<String> arr){
         mJokes.setValue(arr);
     }
 
