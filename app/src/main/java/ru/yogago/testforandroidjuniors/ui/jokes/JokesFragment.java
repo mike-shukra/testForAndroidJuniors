@@ -38,8 +38,10 @@ public class JokesFragment extends Fragment {
         buttonStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(LOG_TAG, "JokesFragment - setOnClickListener: " + this.hashCode());
-                int jokesCount = Integer.parseInt(evCountJokes.getText().toString());
-                jokesViewModel.loadContent(jokesCount, jokesViewModel);
+                String strJokesCount = evCountJokes.getText().toString();
+                if (strJokesCount.isEmpty()) strJokesCount = "0";
+                int intJokesCount = Integer.parseInt(strJokesCount);
+                jokesViewModel.loadContent(intJokesCount, jokesViewModel);
             }
         });
         jokesViewModel.getText().observe(this, new Observer<String>() {
