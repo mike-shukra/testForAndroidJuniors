@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_jokes"
-        android:name="ru.yogago.testforandroidjuniors.ui.jokes.JokesFragment"
+        android:name="ru.yogago.testforandroidjuniors.jokes.JokesFragment"
         android:label="@string/title_jokes"
         tools:layout="@layout/fragment_jokes" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_apiinfo"
-        android:name="ru.yogago.testforandroidjuniors.ui.apiinfo.ApiInfoFragment"
+        android:name="ru.yogago.testforandroidjuniors.apiinfo.ApiInfoFragment"
         android:label="@string/title_apiinfo"
         tools:layout="@layout/fragment_apiinfo" />
 

@@ -1,8 +1,7 @@
-package ru.yogago.testforandroidjuniors.ui.jokes;
+package ru.yogago.testforandroidjuniors.jokes;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +36,10 @@ public class JokesFragment extends Fragment {
         final Button buttonStart = root.findViewById(R.id.button);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(LOG_TAG, "JokesFragment - setOnClickListener: " + this.hashCode());
                 String strJokesCount = evCountJokes.getText().toString();
                 if (strJokesCount.isEmpty()) strJokesCount = "0";
                 int intJokesCount = Integer.parseInt(strJokesCount);
-                jokesViewModel.loadContent(intJokesCount, jokesViewModel);
+                jokesViewModel.setContent(intJokesCount);
             }
         });
         jokesViewModel.getText().observe(this, new Observer<String>() {

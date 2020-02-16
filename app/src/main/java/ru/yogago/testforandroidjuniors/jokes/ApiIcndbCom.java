@@ -1,4 +1,4 @@
-package ru.yogago.testforandroidjuniors.ui.jokes;
+package ru.yogago.testforandroidjuniors.jokes;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

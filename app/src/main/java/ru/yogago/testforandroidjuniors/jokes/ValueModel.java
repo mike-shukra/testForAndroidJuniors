@@ -1,4 +1,4 @@
-package ru.yogago.testforandroidjuniors.ui.jokes;
+package ru.yogago.testforandroidjuniors.jokes;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

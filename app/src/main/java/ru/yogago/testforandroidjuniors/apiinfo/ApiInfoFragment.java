@@ -1,4 +1,4 @@
-package ru.yogago.testforandroidjuniors.ui.apiinfo;
+package ru.yogago.testforandroidjuniors.apiinfo;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -22,6 +22,7 @@ public class ApiInfoFragment extends Fragment {
     private WebView webView;
     private String url;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_apiinfo, container, false);
 
@@ -46,7 +47,7 @@ public class ApiInfoFragment extends Fragment {
         ws.setAllowFileAccess(true);
 
         WebViewClient webViewClient = new WebViewClient() {
-            @SuppressWarnings("deprecation") @Override
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
